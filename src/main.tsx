@@ -8,11 +8,12 @@ import "./index.css";
 import { store } from "./redux/features/store.ts";
 import Login from "./pages/Login.tsx";
 import RegisterForm from "./pages/RegisterForm.tsx";
+import MainLayout from "./components/layout/MainLayout.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: <MainLayout></MainLayout>,
     children: [
       {
         path: "/",

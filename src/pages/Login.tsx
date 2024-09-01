@@ -18,12 +18,18 @@ const Login: React.FC = () => {
   const [loginMutation] = useLoginMutation();
   const dispatch = useAppDispatch();
 
+  const defaultValues = {
+    email: "highway@gmail.com",
+    password: "admin123",
+  };
+
   const onSubmit = async (data: LoginFormInputs) => {
     console.log(data);
     try {
       const response = await loginMutation(data).unwrap();
-      dispatch(login(response.token));
-      localStorage.setItem("token", response.token);
+      console.log(response);
+      //  dispatch(login(response.token));
+      //    localStorage.setItem("token", response.token);
       window.location.href = "/";
     } catch (error) {
       console.error(error);
@@ -32,7 +38,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <PHForm onSubmit={onSubmit}>
+    <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
       <div>
         <PHInput type="text" name="email" label="Email"></PHInput>
       </div>
