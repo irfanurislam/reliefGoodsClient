@@ -9,6 +9,8 @@ import { store } from "./redux/features/store.ts";
 import Login from "./pages/Login.tsx";
 import RegisterForm from "./pages/RegisterForm.tsx";
 import MainLayout from "./components/layout/MainLayout.tsx";
+import Home from "./pages/Home/Home.tsx";
+import Dashboard from "./pages/dashboard/Dashboard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,11 +19,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <App></App>,
+        element: <Home></Home>,
       },
     ],
   },
   { path: "/login", element: <Login></Login> },
+  { path: "/dashboard", element: <Dashboard></Dashboard> },
   { path: "/regis", element: <RegisterForm></RegisterForm> },
 ]);
 
