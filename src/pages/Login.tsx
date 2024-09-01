@@ -5,6 +5,8 @@ import { Button, Form, Input } from "antd";
 import { login } from "../redux/features/userSlice";
 import { useAppDispatch } from "../redux/features/hooks";
 import { useLoginMutation } from "../redux/api/authApi";
+import PHForm from "../components/form/PHForm";
+import PHInput from "../components/form/PHInput";
 
 type LoginFormInputs = {
   email: string;
@@ -12,16 +14,17 @@ type LoginFormInputs = {
 };
 
 const Login: React.FC = () => {
-  const { register, handleSubmit } = useForm<LoginFormInputs>();
+  // const { register, handleSubmit } = useForm<LoginFormInputs>();
   const [loginMutation] = useLoginMutation();
   const dispatch = useAppDispatch();
 
   const onSubmit = async (data: LoginFormInputs) => {
+    console.log(data);
     try {
       const response = await loginMutation(data).unwrap();
       dispatch(login(response.token));
       localStorage.setItem("token", response.token);
-      window.location.href = "/dashboard";
+      window.location.href = "/";
     } catch (error) {
       console.error(error);
       alert("Login failed");
@@ -29,19 +32,15 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Form onFinish={handleSubmit(onSubmit)} layout="vertical">
-      <Form.Item label="Email">
-        <Input {...register("email")} />
-      </Form.Item>
-      <Form.Item label="Password">
-        <Input.Password {...register("password")} />
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Login
-        </Button>
-      </Form.Item>
-    </Form>
+    <PHForm onSubmit={onSubmit}>
+      <div>
+        <PHInput type="text" name="email" label="Email"></PHInput>
+      </div>
+      <div>
+        <PHInput type="text" name="password" label="Password:"></PHInput>
+      </div>
+      <Button htmlType="submit">Login</Button>
+    </PHForm>
   );
 };
 
